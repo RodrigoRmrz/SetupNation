@@ -1,8 +1,12 @@
-<div class="card">
+<div class="text-center pb-5">
+  <h1 class="fs-1 fw-semibold text-gradient-blue">Comparte tu espacio. Inspira a
+    otros.</h1>
+</div>
+<div class="card my-5 ">
   <div class="card-header">
-    <h3 class="card-title">
+    <h3 class="card-title text-center text-primary">
       <i class="far fa-image"></i>
-      SUBE TU SETUP !
+      Sube tu setup
     </h3>
   </div>
   {{! Formulario para subir imagenes }}
@@ -12,8 +16,8 @@
       <div class="mb-3">
         <input
           type="file"
-            name="image"
-            class="form-control border border-primary"
+          name="image"
+          class="form-control border border-primary"
           required
         />
       </div>
@@ -45,11 +49,11 @@
   </div>
 </div>
 
-<div class="card mt-2">
-  <div class="card-header d-flex align-items-center">
-    <h3 class="card-title">
+<div class="card my-5 mt-2 text-center">
+  <div class="card-header d-flex align-items-center justify-content-center">
+    <h3 class="card-title text-center text-primary">
       <i class="fas fa-images"></i>
-      Imágenes Recientes
+      Setups recientes
     </h3>
   </div>
   <div class="card-body p-5">
@@ -67,10 +71,10 @@
         </div>
       {{else}}
         <div class="text-center p-5">
-          <h1 class="">There are no Images <strong>yet</strong></h1>
-          <p>Upload your first image</p>
+          <h1 class="">No hay imagenes <strong>todavía</strong></h1>
+          <p>Sube tu primera imagen</p>
           <span class="material-icons" style="font-size: 7rem;">
-            add_a_photo
+            añade_foto
           </span>
         </div>
       {{/each}}

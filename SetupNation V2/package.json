@@ -13,6 +13,7 @@
   "dependencies": {
     "@handlebars/allow-prototype-access": "^1.0.5",
     "@tailwindcss/cli": "^4.1.6",
+    "aos": "^2.3.4",
     "bcrypt": "^6.0.0",
     "connect-flash": "^0.1.1",
     "dotenv": "^16.5.0",
