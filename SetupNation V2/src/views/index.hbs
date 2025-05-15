@@ -5,41 +5,38 @@
       SUBE TU SETUP !
     </h3>
   </div>
-  <div class="card-body">
+  {{! Formulario para subir imagenes }}
+  <div class="card-body p-5">
     <form action="/images" method="post" enctype="multipart/form-data">
-      <div class="form-group mb-3">
-        <div class="input-group">
-          <div class="custom-file">
-            <input
-              class="form-control"
-              type="file"
-              id="formFile"
-              name="image"
-              required
-            />
-          </div>
-        </div>
+
+      <div class="mb-3">
+        <input
+          type="file"
+            name="image"
+            class="form-control border border-primary"
+          required
+        />
       </div>
-      <div class="form-group mb-3">
+      <div class="mb-3">
         <input
           type="text"
           name="title"
-          class="form-control"
+          class="form-control border border-primary"
           placeholder="Titulo"
           required
         />
       </div>
-      <div class="form-group mb-3">
+      <div class="mb-3">
         <textarea
           name="descripcion"
-          class="form-control"
+          class="form-control border border-primary"
           rows="2"
           placeholder="Describe tu setup"
           required
         ></textarea>
       </div>
-      <div class="form-group mb-3">
-        <button class="btn tn btn-outline-primary" type="submit">
+      <div class="form-group">
+        <button class="btn btn-outline-primary">
           <i class="fa fa-upload"></i>
           Subir
         </button>
@@ -61,7 +58,7 @@
         <div class="col-md-4 text-center">
           <a href="/images/{{uniqueId}}">
             <img
-              src="upload/{{filename}}"
+              src="uploads/{{filename}}"
               alt="{{title}}"
               class="w-100 h-100"
               style="object-fit: cover;"
