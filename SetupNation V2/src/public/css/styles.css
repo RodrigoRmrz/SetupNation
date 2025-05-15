@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+body {
+    font-family: Raleway, sans-serif;
+    
+}
+.navbar-brand img {
+    width: 30%;
+    height: auto;
+    display: block;
+    margin: auto;
+}

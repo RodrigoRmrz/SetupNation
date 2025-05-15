@@ -1,0 +1,27 @@
+{
+  "name": "setupnation-v2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.6",
+    "errorhandler": "^1.5.1",
+    "express": "^5.1.0",
+    "express-handlebars": "^8.0.3",
+    "fs-extra": "^11.3.0",
+    "md5": "^2.3.0",
+    "mongoose": "^8.14.3",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.2",
+    "tailwindcss": "^4.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
