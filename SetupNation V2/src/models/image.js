@@ -1,33 +1,26 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
-const path = require("path");
-const imageSchema = new Schema({
-  title: {
-    type: String,
-  },
-  description: {
-    type: String,
-  },
-  filename: {
-    type: String,
-  },
-  views: {
-    type: Number,
-    default: 0,
-  },
-  likes: {
-    type: Number,
-    default: 0,
-  },
-  timestamp: {
-    type: Date,
-    default: Date.now,
-  },
-});
+import { Schema, model } from "mongoose";
+import path from "path";
+import mongooseLeanVirtuals from "mongoose-lean-virtuals";
 
-// Devuelve el nombre del archivo sin la extensión
+const imageSchema = new Schema(
+  {
+    title: { type: String, required: true, trim: true },
+    description: { type: String, trim: true },
+    filename: { type: String },
+    views: { type: Number, default: 0 },
+    likes: { type: Number, default: 0 },
+    timestamp: { type: Date, default: Date.now },
+  },
+  {
+    versionKey: false,
+    timestamps: true,
+  }
+);
+
+imageSchema.plugin(mongooseLeanVirtuals);
+
 imageSchema.virtual("uniqueId").get(function () {
   return this.filename.replace(path.extname(this.filename), "");
 });
 
-module.exports = mongoose.model("Image", imageSchema);
+export default model("Image", imageSchema);
