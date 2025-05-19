@@ -21,11 +21,9 @@
       <ul class="navbar-nav ms-auto">
         {{#unless user}}
           <li class="nav-item">
-            <a class="nav-link d-flex items-center text-blue-600 text-lg whitespace-nowrap" href="/auth/signin">
-             
-              <i class="fa-solid fa-user me-2 inline-block"></i>
-                   Iniciar Sesión    
-               </a>
+            <a class="nav-link d-flex align-items-center" href="/auth/signin">
+              <i class="fa-solid fa-user me-2 inline-block"></i>  
+               Iniciar Sesión</a>
           </li>
         {{else}}
           <li class="nav-item dropdown">
