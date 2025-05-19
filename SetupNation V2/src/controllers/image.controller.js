@@ -53,7 +53,8 @@ export const create = (req, res) => {
         ext === ".png" ||
         ext === ".jpg" ||
         ext === ".jpeg" ||
-        ext === ".gif"
+        ext === ".gif" ||
+        ext === ".webp"
       ) {
         // you wil need the public/temp path or this will throw an error
         await fs.rename(imageTempPath, targetPath);
