@@ -1,7 +1,7 @@
-<div class="absolute top-0 -z-10 h-full w-full bg-white"><div
-    class="absolute bottom-auto left-auto right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] rounded-full bg-[rgba(83,109,254,0.5)] opacity-50 blur-[80px]"
-  ></div></div>
 <nav class="navbar navbar-expand p-2">
+  <div class="absolute top-0 -z-10 h-full w-full bg-white"><div
+      class="absolute bottom-auto left-auto right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] rounded-full bg-[rgba(83,109,254,0.5)] opacity-50 blur-[80px]"
+    ></div></div>
   <div class="container">
     <a href="/" class="navbar-brand">
       <img src="/public/images/SetupNation-Logo.png" alt="Logo Setup Nation" />
@@ -22,8 +22,10 @@
         {{#unless user}}
           <li class="nav-item">
             <a class="nav-link d-flex align-items-center" href="/auth/signin">
-              <i class="fa-solid fa-user me-2 inline-block"></i>  
-               Iniciar Sesión</a>
+               <span class="material-icons me-2">
+                account_circle
+              </span>
+              Iniciar Sesión</a>
           </li>
         {{else}}
           <li class="nav-item dropdown">

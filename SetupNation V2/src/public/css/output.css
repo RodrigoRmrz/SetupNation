@@ -103,7 +103,7 @@
   }
   img, svg, video, canvas, audio, iframe, embed, object {
     display: block;
-    vertical-align: middle;
+   
   }
   img, video {
     max-width: 100%;
@@ -299,7 +299,7 @@
     border-width: 1px;
   }
   .bg-\[rgba\(\,109\,244\,0\.5\)\] {
-    background-color: rgba(,109,244,0.5);
+    background-color: rgba(83,109,244,0.5);
   }
   .bg-\[rgba\(83\,109\,2\,0\.5\)\] {
     background-color: rgba(83,109,2,0.5);

@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 {{>head}}
-    
 </head>
 <body>
-    {{>navigation}}
-    
+{{>navigation}}
+
     <div class="container p-4">
         <div class="row">
-            <div >
+            <div>
           {{{body}}}
             </div>
-            
-        </div>
-        <div>
-                {{>stats this}}
+            <div>
+           {{>stats this}}
+           {{>popular this}}
+           {{>comments this}}
             </div>
+        </div>
     </div>
+    {{>footer}}
     <script src="/public/js/scripts.js"></script>
 </body>
 </html>
