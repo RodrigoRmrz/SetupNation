@@ -1,0 +1,52 @@
+<div class="absolute top-0 -z-10 h-full w-full bg-white"><div
+    class="absolute bottom-auto left-auto right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] rounded-full bg-[rgba(83,109,254,0.5)] opacity-50 blur-[80px]"
+  ></div></div>
+<nav class="navbar navbar-expand p-2">
+  <div class="container">
+    <a href="/" class="navbar-brand">
+      <img src="/public/images/SetupNation-Logo.png" alt="Logo Setup Nation" />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        {{#unless user}}
+          <li class="nav-item">
+            <a class="nav-link d-flex items-center text-blue-600 text-lg whitespace-nowrap" href="/auth/signin">
+             
+              <i class="fa-solid fa-user me-2 inline-block"></i>
+                   Iniciar Sesión    
+               </a>
+          </li>
+        {{else}}
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="/#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Profile
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="/profile">Settings</a>
+              <a class="dropdown-item" href="/auth/logout">Logout</a>
+            </div>
+          </li>
+        {{/unless}}
+      </ul>
+    </div>
+  </div>
+</nav>
