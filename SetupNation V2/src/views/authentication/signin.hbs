@@ -3,7 +3,7 @@
   <div class="col-md-4 offset-md-4">
 
     {{#if success}}
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <div class="alert alert-primary alert-dismissible fade show" role="alert">
         {{success}}
         <button
           type="button"
@@ -18,28 +18,28 @@
 
     <div class="card">
       <div class="card-body p-4">
-        <h1>SignIn</h1>
+        <h1></h1>
         <form action="/auth/signin" method="POST">
           <div class="mb-3">
-            <label for="email">Write your email:</label>
+            <label for="email">Escribe tu email:</label>
             <input
               type="text"
               name="email"
               class="form-control"
-              placeholder="youremail@company.com"
+              placeholder="tuemail@company.com"
               autofocus
             />
           </div>
           <div class="mb-3">
-            <label for="password">Write your password:</label>
+            <label for="password">Escribe tu contraseña:</label>
             <input
               type="password"
               name="password"
               class="form-control"
-              placeholder="Password"
+              placeholder="Contraseña"
             />
           </div>
-          <button class="btn btn-success btn-block">
+          <button class="btn btn-primary btn-block">
             Login
           </button>
         </form>
@@ -49,10 +49,11 @@
     </div>
 
     <div class="">
-      <p class="my-3">Don't have an Account
-        <a href="/auth/signup" class="text-success">Create One</a></p>
-      <p class="my-3">Did Forget your Password
-        <a href="/auth/recovery-password" class="text-success">Reset Password</a></p>
+      <p class="my-3">No tienes cuenta?
+        <a href="/auth/signup" class="text-primary">Crea una</a></p>
+      <p class="my-3">Has olvidado la contraseña?
+        <a href="/auth/recovery-password" class="text-primary">Renueva
+          contraseña</a></p>
 
     </div>
   </div>

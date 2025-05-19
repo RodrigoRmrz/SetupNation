@@ -15,26 +15,26 @@
       </div>
     {{/if}}
 
-    <div class="card bg-dark text-light">
+    <div class="card">
       <div class="card-body p-4">
-        <h3 class="text-light h1">SignUp</h3>
+        <h3 class=" h1">Registrarse</h3>
         <form action="/auth/signup" method="POST">
           <div class="mb-3">
-            <label for="email">Write your email:</label>
+            <label for="email">Escribe tu email:</label>
             <input
               type="text"
               name="email"
-              class="form-control bg-dark text-light border border-success"
+              class="form-control border border-success"
               placeholder="youremail@company.com"
               autofocus
             />
           </div>
           <div class="mb-3">
-            <label for="password">Write your Password:</label>
+            <label for="password">Escribe tu contraseña:</label>
             <input
               type="password"
               name="password"
-              class="form-control bg-dark text-light border border-success"
+              class="form-control border border-success"
               placeholder="Password"
             />
           </div>
@@ -43,17 +43,17 @@
             <input
               type="password"
               name="confirm-password"
-              class="form-control bg-dark text-light border border-success"
+              class="form-control border border-success"
               placeholder="Confirm Password"
             />
           </div>
           <button class="btn btn-success btn-block">
-            SignUp
+            Registrarse
           </button>
         </form>
       </div>
     </div>
-    <p class="my-3">Do you have an Account
-      <a href="/auth/signin" class="text-success">Login</a></p>
+    <p class="my-3">Tienes cuenta?
+      <a href="/auth/signin" class="text-success">Inici sesión</a></p>
   </div>
 </div>
