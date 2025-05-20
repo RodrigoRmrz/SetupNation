@@ -29,11 +29,14 @@ $(function() {
         url: '/images/' + imgId,
         type: 'DELETE'
       })
-        .done(function(result) {
-          $this.removeClass('btn-danger').addClass('btn-success');
-          $this.find('i').removeClass('fa-times').addClass('fa-check');
-          $this.append('<span>Deleted!</span>');
-        });
+      .done(function(result) {
+        window.location.href = "/";
+      })
+      .fail(function(err) {
+        console.error(err);
+        alert('Error deleting image');
+      });
+      
     }
   });
 });

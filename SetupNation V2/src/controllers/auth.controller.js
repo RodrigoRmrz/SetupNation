@@ -28,7 +28,10 @@ export const profile = (req, res) => {
   res.render("authentication/profile");
 };
 
-export const logout = (req, res) => {
-  req.logout();
-  res.redirect("/");
+export const logout = (req, res, next) => {
+  req.logout(function(err) {
+    if (err) { return next(err); }
+    res.redirect('/');
+  });
 };
+

@@ -96,30 +96,43 @@ export const like = async (req, res) => {
 };
 
 export const comment = async (req, res) => {
-  const image = await Image.findOne({
-    filename: { $regex: req.params.image_id },
-  });
-  if (image) {
+  try {
+    const image = await Image.findById(req.params.image_id);
+    if (!image) return res.redirect("/");
+
     const newComment = new Comment(req.body);
     newComment.gravatar = md5(newComment.email);
     newComment.image_id = image._id;
     await newComment.save();
-    res.redirect("/images/" + image.uniqueId + "#" + newComment._id);
-  } else {
+
+    res.redirect("/images/" + image._id + "#" + newComment._id);
+  } catch (err) {
+    console.error("Error posting comment:", err);
     res.redirect("/");
   }
 };
 
+
 export const remove = async (req, res) => {
-  const image = await Image.findOne({
-    filename: { $regex: req.params.image_id },
-  });
-  if (image) {
-    await fs.unlink(path.resolve("./uploads/" + image.filename));
-    await Comment.deleteOne({ image_id: image._id });
-    await image.remove();
-    res.json(true);
-  } else {
-    res.json({ response: "Bad Request." });
+  try {
+    const image = await Image.findById(req.params.image_id);
+
+    if (!image) {
+      return res.status(404).json({ error: "Image not found" });
+    }
+
+    const imagePath = path.resolve("./uploads/" + image.filename);
+    if (await fs.pathExists(imagePath)) {
+      await fs.unlink(imagePath);
+    }
+
+    await Comment.deleteMany({ image_id: image._id });
+    await Image.findByIdAndDelete(image._id);
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error("Error deleting image:", err);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
