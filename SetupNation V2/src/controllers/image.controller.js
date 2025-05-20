@@ -9,32 +9,33 @@ import { Image, Comment } from "../models/index.js";
 export const index = async (req, res, next) => {
   let viewModel = { image: {}, comments: [] };
 
-  const image = await Image.findOne({
-    filename: { $regex: req.params.image_id },
-  });
+  try {
+    const image = await Image.findById(req.params.image_id);
 
-  // if image does not exists
-  if (!image) return next(new Error("Image does not exists"));
+    if (!image) {
+      return next(new Error("Image does not exists"));
+    }
 
-  // increment views
-  const updatedImage = await Image.findOneAndUpdate(
-    { _id: image.id },
-    { $inc: { views: 1 } }
-  ).lean();
+    const updatedImage = await Image.findByIdAndUpdate(
+      image._id,
+      { $inc: { views: 1 } },
+      { new: true }
+    ).lean();
 
-  viewModel.image = updatedImage;
+    viewModel.image = updatedImage;
 
-  // get image comments
-  const comments = await Comment.find({ image_id: image._id }).sort({
-    timestamp: 1,
-  });
+    const comments = await Comment.find({ image_id: image._id }).sort({ timestamp: 1 });
+    viewModel.comments = comments;
 
-  viewModel.comments = comments;
-  viewModel = await sidebar(viewModel);
+    viewModel = await sidebar(viewModel);
 
-  console.log(viewModel);
-  res.render("image", viewModel);
+    res.render("image", viewModel);
+  } catch (err) {
+    console.error("Error loading image:", err);
+    next(err);
+  }
 };
+
 
 export const create = (req, res) => {
   const saveImage = async () => {
@@ -67,10 +68,10 @@ export const create = (req, res) => {
         });
 
         // save the image
-        const imageSaved = await newImg.save();
+        const savedImage = await newImg.save();
 
         // redirect to the list of images
-        res.redirect("/images/" + imageSaved.uniqueId);
+        res.redirect('/images/' + savedImage._id);
       } else {
         await fs.unlink(imageTempPath);
         res.status(500).json({ error: "Only Images are allowed" });
@@ -100,6 +101,8 @@ export const comment = async (req, res) => {
     const image = await Image.findById(req.params.image_id);
     if (!image) return res.redirect("/");
 
+    console.log("Comentario recibido:", req.body);
+
     const newComment = new Comment(req.body);
     newComment.gravatar = md5(newComment.email);
     newComment.image_id = image._id;
@@ -111,6 +114,7 @@ export const comment = async (req, res) => {
     res.redirect("/");
   }
 };
+
 
 
 export const remove = async (req, res) => {
