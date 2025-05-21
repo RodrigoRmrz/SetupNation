@@ -14,9 +14,10 @@
     <div class="row">
       {{#each sidebar.popular}}
         <div class="col-md-4">
-          <a href="/images/{{uniqueId}}">
+          <a href="/images/{{_id}}">
             <img
               src="/uploads/{{filename}}"
+              alt="{{title}}"
               class="w-100 h-100 image-thumbnail"
               style="object-fit: cover;"
             />
