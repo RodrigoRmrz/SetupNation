@@ -7,35 +7,6 @@ import sidebar from "../helpers/sidebar.js";
 import { randomNumber } from "../helpers/libs.js";
 import { Image, Comment } from "../models/index.js";
 
-// export const index = async (req, res, next) => {
-//   let viewModel = { image: {}, comments: [] };
-
-//   try {
-//     const image = await Image.findById(req.params.image_id);
-
-//     if (!image) {
-//       return next(new Error("Image does not exists"));
-//     }
-
-//     const updatedImage = await Image.findByIdAndUpdate(
-//       image._id,
-//       { $inc: { views: 1 } },
-//       { new: true }
-//     ).lean();
-
-//     viewModel.image = updatedImage;
-
-//     const comments = await Comment.find({ image_id: image._id }).sort({ timestamp: 1 });
-//     viewModel.comments = comments;
-
-//     viewModel = await sidebar(viewModel);
-
-//     res.render("image", viewModel);
-//   } catch (err) {
-//     console.error("Error loading image:", err);
-//     next(err);
-//   }
-// };
 export const index = async (req, res, next) => {
   let viewModel = { image: {}, comments: [] };
 
@@ -56,13 +27,13 @@ export const index = async (req, res, next) => {
     const comments = await Comment.find({ image_id: image._id })
       .sort({ timestamp: 1 })
       .populate('image_id', 'filename')
-      .lean(); // Usamos lean() para que Mongoose no devuelva instancias de Mongoose
+      .lean(); 
 
-    viewModel.comments = comments; // Asignamos los comentarios al viewModel
+    viewModel.comments = comments; 
 
-    console.log("Comentarios obtenidos:", comments); // Agrega este log para verificar si los comentarios se obtienen correctamente.
+    console.log("Comentarios obtenidos:", comments); 
 
-    viewModel = await sidebar(viewModel); // Agrega el sidebar si es necesario
+    viewModel = await sidebar(viewModel); 
 
     res.render("image", viewModel);
   } catch (err) {
@@ -79,16 +50,12 @@ export const create = (req, res) => {
     if (images.length > 0) {
       saveImage();
     } else {
-      // revisa si la imagen está actualmente en el servidor
-      // si no está, la guardamos
-      // si está, la eliminamos y guardamos la nueva
+     
       const imageTempPath = req.file.path;
       const ext = path.extname(req.file.originalname).toLowerCase();
       const targetPath = path.resolve(`./uploads/${imgUrl}${ext}`);
 
-      // valida extensiones
-      // si no es una imagen, eliminamos el archivo temporal
-      // y regresamos un error
+    
       if (
         ext === ".png" ||
         ext === ".jpg" ||
@@ -106,10 +73,9 @@ export const create = (req, res) => {
           description: req.body.description,
         });
 
-        // guarda la imagen en la base de datos
+        
         const savedImage = await newImg.save();
 
-        // agrega la imagen a la vista
         res.redirect('/images/' + savedImage._id);
       } else {
         await fs.unlink(imageTempPath);
@@ -139,24 +105,24 @@ export const like = async (req, res) => {
   try {
     const imageId = req.params.image_id;
 
-    // Verificar si el ID es válido
+    
     if (!mongoose.Types.ObjectId.isValid(imageId)) {
       return res.status(400).json({ error: 'ID de imagen inválido' });
     }
 
-    // Buscar la imagen por _id (usando un nombre diferente para la variable)
-    const image = await Image.findById(imageId);  // Cambié `Image` por `image` aquí
+    
+    const image = await Image.findById(imageId);  
     if (!image) {
       return res.status(404).json({ error: 'Imagen no encontrada' });
     }
 
-    // Incrementar los likes
+    
     image.likes += 1;
 
-    // Guardar los cambios
+    
     await image.save();
 
-    // Responder con los nuevos likes
+   
     res.json({ likes: image.likes });
 
   } catch (err) {
@@ -165,48 +131,31 @@ export const like = async (req, res) => {
   }
 };
 
-// export const comment = async (req, res) => {
-//   try {
-//     const image = await Image.findById(req.params.image_id);
-//     if (!image) return res.redirect("/");
 
-//     console.log("Comentario recibido:", req.body);
-
-//     const newComment = new Comment(req.body);
-//     newComment.gravatar = md5(newComment.email);
-//     newComment.image_id = image._id;
-//     await newComment.save();
-
-//     res.redirect("/images/" + image._id + "#" + newComment._id);
-//   } catch (err) {
-//     console.error("Error posting comment:", err);
-//     res.redirect("/");
-//   }
-// };
 
 export const comment = async (req, res) => {
   try {
-    // Buscar la imagen por ID
+    
     const image = await Image.findById(req.params.image_id);
-    if (!image) return res.redirect("/");  // Si no existe la imagen, redirigir a la página principal
+    if (!image) return res.redirect("/");  
 
-    // Imprime el comentario recibido
+    
     console.log("Comentario recibido:", req.body);
 
-    // Crear un nuevo comentario
+    
     const newComment = new Comment(req.body);
     newComment.gravatar = md5(newComment.email.trim().toLowerCase());
     newComment.image_id = image._id;
 
-    // Guardamos el nuevo comentario
+   
     await newComment.save();
 
-    // Redirigir a la página de la imagen, para mostrar los comentarios
+    
     res.redirect(`/images/${image._id}#comments`);
     
   } catch (err) {
     console.error("Error posting comment:", err);
-    res.redirect("/");  // En caso de error, redirigimos a la página principal
+    res.redirect("/");  
   }
 };
 
