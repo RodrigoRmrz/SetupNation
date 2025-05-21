@@ -36,71 +36,72 @@
   </div>
 </div>
 
-<!-- COMENTARIOS -->
-<div class="card mt-2">
-  <div class="card-header d-flex justify-content-between align-items-center">
-    <h3 class="card-title">Comentarios</h3>
-    <button class="btn btn-info" id="btn-toggle-comment">
-      <i class="fa fa-comments-o"></i>
-      Postea un comentario
+  <!-- COMENTARIOS -->
+  <div class="card mt-2">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h3 class="card-title">Comentarios</h3>
+      <button class="btn btn-info" id="btn-toggle-comment">
+        <i class="fa fa-comments-o"></i>
+        Postea un comentario
+      </button>
+    </div>
+    <div class="card-body">
+      <blockquote id="post-comment">
+<form action="/images/{{image._id}}/comment" method="POST">
+  <div class="form-group">
+    <input
+      type="text"
+      class="form-control border"
+      name="name"
+      placeholder="Nombre"
+    />
+  </div>
+  <div class="form-group">
+    <input
+      type="email"
+      class="form-control border"
+      name="email"
+      placeholder="Email"
+    />
+  </div>
+  <div class="form-group">
+    <textarea
+      name="comment"
+      class="form-control t border"
+      rows="2"
+      placeholder="Tu comentario"
+    ></textarea>
+  </div>
+  <div class="form-group">
+    <button class="btn btn-outline-success" id="btn-comment">
+      <i class="fa fa-comment"></i>
+      Postear
     </button>
   </div>
-  <div class="card-body">
-    <blockquote id="post-comment">
-      <form action="/images/{{image._id}}/comment" method="POST">
-        <div class="form-group">
-          <input
-            type="text"
-            class="form-control border"
-            name="name"
-            placeholder="Nombre"
+</form>
+      </blockquote>
+  <!-- Sección de comentarios -->
+<ul class="list-group p-4">
+  {{#each comments}}
+    <li class="list-group-item">
+      <div class="row">
+        <a href="#" class="col text-center">
+          <img
+            src="http://gravatar.com/avatar/{{this.gravatar}}?d=monsterid&s=45"
+            alt="Avatar"
           />
-        </div>
-        <div class="form-group">
-          <input
-            type="email"
-            class="form-control border"
-            name="email"
-            placeholder="Email"
-          />
-        </div>
-        <div class="form-group">
-          <textarea
-            name="comment"
-            class="form-control t border"
-            rows="2"
-            placeholder="Your Comment"
-          ></textarea>
-        </div>
-        <div class="form-group">
-          <button class="btn btn-outline-success" id="btn-comment">
-            <i class="fa fa-comment"></i>
-            Post
-          </button>
-        </div>
-      </form>
-    </blockquote>
-    <ul class="list-group p-4">
-      {{#each comments}}
-        <li class="list-group-item">
-          <div class="row">
-            <a href="#" class="col text-center">
-              <img
-                src="http://gravatar.com/avatar/{{this.gravatar}}?d=monsterid&s=45"
-              />
-            </a>
-            <blockquote class="col">
-              <p class="lead">{{this.comment}}</p>
-              <footer class="blockquote-footer">
-                {{this.name}}
-                —
-                {{timeago this.timestamp}}
-              </footer>
-            </blockquote>
-          </div>
-        </li>
-      {{/each}}
-
-    </ul>
+        </a>
+        <blockquote class="col">
+          <p class="lead">{{this.comment}}</p>
+          <footer class="blockquote-footer">
+            {{this.name}} — {{timeago this.timestamp}}
+          </footer>
+        </blockquote>
+      </div>
+    </li>
+  {{else}}
+    <p>No hay comentarios disponibles.</p>
+  {{/each}}
+</ul>
+    </div>
   </div>
-</div>
