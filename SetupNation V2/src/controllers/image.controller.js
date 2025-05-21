@@ -79,12 +79,16 @@ export const create = (req, res) => {
     if (images.length > 0) {
       saveImage();
     } else {
-      // Image Location
+      // revisa si la imagen está actualmente en el servidor
+      // si no está, la guardamos
+      // si está, la eliminamos y guardamos la nueva
       const imageTempPath = req.file.path;
       const ext = path.extname(req.file.originalname).toLowerCase();
       const targetPath = path.resolve(`./uploads/${imgUrl}${ext}`);
 
-      // Validate Extension
+      // valida extensiones
+      // si no es una imagen, eliminamos el archivo temporal
+      // y regresamos un error
       if (
         ext === ".png" ||
         ext === ".jpg" ||
@@ -92,20 +96,20 @@ export const create = (req, res) => {
         ext === ".gif" ||
         ext === ".webp"
       ) {
-        // you wil need the public/temp path or this will throw an error
+        // mueve la imagen
         await fs.rename(imageTempPath, targetPath);
 
-        // create a new image
+        // crea un nuevo objeto de imagen
         const newImg = new Image({
           title: req.body.title,
           filename: imgUrl + ext,
           description: req.body.description,
         });
 
-        // save the image
+        // guarda la imagen en la base de datos
         const savedImage = await newImg.save();
 
-        // redirect to the list of images
+        // agrega la imagen a la vista
         res.redirect('/images/' + savedImage._id);
       } else {
         await fs.unlink(imageTempPath);
