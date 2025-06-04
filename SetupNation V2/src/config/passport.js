@@ -11,24 +11,24 @@ passport.use(
       passReqToCallback: true,
     },
     async (req, email, password, done) => {
-      // Search an existing email
+      // Busca si existe un usuario con ese email
       const userFound = await User.findOne({ email });
 
-      // return an error if the email already exists
+      // si existe retorna un error
       if (userFound) {
         return done(null, false, { message: "The username is already Taken" });
       }
 
-      // create a new User
+      // Crea un nuevo usuario
       const newUser = new User();
       newUser.email = email;
       newUser.password = await User.encryptPassword(password);
       const userSaved = await newUser.save();
 
-      // create a success message
+      // crea un mensaje de éxito
       req.flash("success", "Ingresa con tu nueva cuenta");
 
-      // return the session
+      // retorna sesión iniciada
       return done(null, userSaved);
     }
   )
@@ -42,13 +42,13 @@ passport.use(
       usernameField: "email",
     },
     async (email, password, done) => {
-      // Find the user by email
+      // busca al usuario por email
       const userFound = await User.findOne({ email });
 
-      // if user does not exists
+      // si no existe retorna un error
       if (!userFound) return done(null, false, { message: "Not User found." });
 
-      // match password
+      // enlaza la contraseña con la que se ha registrado
       const match = await userFound.matchPassword(password);
 
       if (!match) return done(null, false, { message: "Incorrect Password." });
@@ -57,7 +57,7 @@ passport.use(
     }
   )
 );
-
+// Serialización y deserialización de usuario
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
@@ -65,7 +65,6 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
   try {
     const user = (await User.findById(id)).toObject();
-    // delete the user from object respones
     if (user) {
       delete user.password;
       return done(null, user);
